@@ -744,7 +744,7 @@ static void mavlink_test_nmpc_params(uint8_t system_id, uint8_t component_id, ma
         uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
         uint16_t i;
 	mavlink_nmpc_params_t packet_in = {
-		17.0,45.0,73.0,101.0,129.0,157.0,185.0,213.0,241.0,269.0,{ 297.0, 298.0, 299.0, 300.0, 301.0, 302.0, 303.0, 304.0, 305.0, 306.0, 307.0, 308.0, 309.0, 310.0, 311.0, 312.0 }
+		17.0,45.0,73.0,101.0,129.0,157.0,185.0,213.0,241.0,269.0,297.0,{ 325.0, 326.0, 327.0, 328.0, 329.0, 330.0, 331.0, 332.0, 333.0, 334.0, 335.0, 336.0, 337.0, 338.0, 339.0, 340.0 }
     };
 	mavlink_nmpc_params_t packet1, packet2;
         memset(&packet1, 0, sizeof(packet1));
@@ -758,6 +758,7 @@ static void mavlink_test_nmpc_params(uint8_t system_id, uint8_t component_id, ma
         packet1.alpha_p_co = packet_in.alpha_p_co;
         packet1.alpha_m_co = packet_in.alpha_m_co;
         packet1.alpha_delta_co = packet_in.alpha_delta_co;
+        packet1.i_e_t_co = packet_in.i_e_t_co;
         
         mav_array_memcpy(packet1.Qdiag, packet_in.Qdiag, sizeof(float)*16);
         
@@ -768,12 +769,12 @@ static void mavlink_test_nmpc_params(uint8_t system_id, uint8_t component_id, ma
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-	mavlink_msg_nmpc_params_pack(system_id, component_id, &msg , packet1.R_acpt , packet1.ceta_acpt , packet1.k_t_d , packet1.e_d_co , packet1.k_t_ne , packet1.e_ne_co , packet1.eps_v , packet1.alpha_p_co , packet1.alpha_m_co , packet1.alpha_delta_co , packet1.Qdiag );
+	mavlink_msg_nmpc_params_pack(system_id, component_id, &msg , packet1.R_acpt , packet1.ceta_acpt , packet1.k_t_d , packet1.e_d_co , packet1.k_t_ne , packet1.e_ne_co , packet1.eps_v , packet1.alpha_p_co , packet1.alpha_m_co , packet1.alpha_delta_co , packet1.i_e_t_co , packet1.Qdiag );
 	mavlink_msg_nmpc_params_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-	mavlink_msg_nmpc_params_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.R_acpt , packet1.ceta_acpt , packet1.k_t_d , packet1.e_d_co , packet1.k_t_ne , packet1.e_ne_co , packet1.eps_v , packet1.alpha_p_co , packet1.alpha_m_co , packet1.alpha_delta_co , packet1.Qdiag );
+	mavlink_msg_nmpc_params_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.R_acpt , packet1.ceta_acpt , packet1.k_t_d , packet1.e_d_co , packet1.k_t_ne , packet1.e_ne_co , packet1.eps_v , packet1.alpha_p_co , packet1.alpha_m_co , packet1.alpha_delta_co , packet1.i_e_t_co , packet1.Qdiag );
 	mavlink_msg_nmpc_params_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
@@ -786,7 +787,7 @@ static void mavlink_test_nmpc_params(uint8_t system_id, uint8_t component_id, ma
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
         
         memset(&packet2, 0, sizeof(packet2));
-	mavlink_msg_nmpc_params_send(MAVLINK_COMM_1 , packet1.R_acpt , packet1.ceta_acpt , packet1.k_t_d , packet1.e_d_co , packet1.k_t_ne , packet1.e_ne_co , packet1.eps_v , packet1.alpha_p_co , packet1.alpha_m_co , packet1.alpha_delta_co , packet1.Qdiag );
+	mavlink_msg_nmpc_params_send(MAVLINK_COMM_1 , packet1.R_acpt , packet1.ceta_acpt , packet1.k_t_d , packet1.e_d_co , packet1.k_t_ne , packet1.e_ne_co , packet1.eps_v , packet1.alpha_p_co , packet1.alpha_m_co , packet1.alpha_delta_co , packet1.i_e_t_co , packet1.Qdiag );
 	mavlink_msg_nmpc_params_decode(last_msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 }

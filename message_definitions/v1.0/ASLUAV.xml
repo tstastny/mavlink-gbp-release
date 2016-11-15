@@ -210,6 +210,7 @@
               <field type="float" name="alpha_p_co">Angle of attack upper cutoff [rad]</field>
               <field type="float" name="alpha_m_co">Angle of attack lower cutoff [rad]</field>
               <field type="float" name="alpha_delta_co">Angle of attack cutoff transition length [rad]</field>
+              <field type="float" name="i_e_t_co">Track error integral cutoff [m]</field>
               <field type="float[16]" name="Qdiag">Objective weights</field>
            </message> 
      </messages>
