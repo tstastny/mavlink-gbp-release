@@ -15,18 +15,18 @@ typedef struct MAVLINK_PACKED __mavlink_nmpc_params_t
  float alpha_m_co; /*< Angle of attack lower cutoff [rad]*/
  float alpha_delta_co; /*< Angle of attack cutoff transition length [rad]*/
  float i_e_t_co; /*< Track error integral cutoff [m]*/
- float Qdiag[16]; /*< Objective weights*/
+ float Qdiag[18]; /*< Objective weights*/
 } mavlink_nmpc_params_t;
 
-#define MAVLINK_MSG_ID_NMPC_PARAMS_LEN 108
-#define MAVLINK_MSG_ID_NMPC_PARAMS_MIN_LEN 108
-#define MAVLINK_MSG_ID_213_LEN 108
-#define MAVLINK_MSG_ID_213_MIN_LEN 108
+#define MAVLINK_MSG_ID_NMPC_PARAMS_LEN 116
+#define MAVLINK_MSG_ID_NMPC_PARAMS_MIN_LEN 116
+#define MAVLINK_MSG_ID_213_LEN 116
+#define MAVLINK_MSG_ID_213_MIN_LEN 116
 
-#define MAVLINK_MSG_ID_NMPC_PARAMS_CRC 182
-#define MAVLINK_MSG_ID_213_CRC 182
+#define MAVLINK_MSG_ID_NMPC_PARAMS_CRC 135
+#define MAVLINK_MSG_ID_213_CRC 135
 
-#define MAVLINK_MSG_NMPC_PARAMS_FIELD_QDIAG_LEN 16
+#define MAVLINK_MSG_NMPC_PARAMS_FIELD_QDIAG_LEN 18
 
 #if MAVLINK_COMMAND_24BIT
 #define MAVLINK_MESSAGE_INFO_NMPC_PARAMS { \
@@ -44,7 +44,7 @@ typedef struct MAVLINK_PACKED __mavlink_nmpc_params_t
          { "alpha_m_co", NULL, MAVLINK_TYPE_FLOAT, 0, 32, offsetof(mavlink_nmpc_params_t, alpha_m_co) }, \
          { "alpha_delta_co", NULL, MAVLINK_TYPE_FLOAT, 0, 36, offsetof(mavlink_nmpc_params_t, alpha_delta_co) }, \
          { "i_e_t_co", NULL, MAVLINK_TYPE_FLOAT, 0, 40, offsetof(mavlink_nmpc_params_t, i_e_t_co) }, \
-         { "Qdiag", NULL, MAVLINK_TYPE_FLOAT, 16, 44, offsetof(mavlink_nmpc_params_t, Qdiag) }, \
+         { "Qdiag", NULL, MAVLINK_TYPE_FLOAT, 18, 44, offsetof(mavlink_nmpc_params_t, Qdiag) }, \
          } \
 }
 #else
@@ -62,7 +62,7 @@ typedef struct MAVLINK_PACKED __mavlink_nmpc_params_t
          { "alpha_m_co", NULL, MAVLINK_TYPE_FLOAT, 0, 32, offsetof(mavlink_nmpc_params_t, alpha_m_co) }, \
          { "alpha_delta_co", NULL, MAVLINK_TYPE_FLOAT, 0, 36, offsetof(mavlink_nmpc_params_t, alpha_delta_co) }, \
          { "i_e_t_co", NULL, MAVLINK_TYPE_FLOAT, 0, 40, offsetof(mavlink_nmpc_params_t, i_e_t_co) }, \
-         { "Qdiag", NULL, MAVLINK_TYPE_FLOAT, 16, 44, offsetof(mavlink_nmpc_params_t, Qdiag) }, \
+         { "Qdiag", NULL, MAVLINK_TYPE_FLOAT, 18, 44, offsetof(mavlink_nmpc_params_t, Qdiag) }, \
          } \
 }
 #endif
@@ -103,7 +103,7 @@ static inline uint16_t mavlink_msg_nmpc_params_pack(uint8_t system_id, uint8_t c
 	_mav_put_float(buf, 32, alpha_m_co);
 	_mav_put_float(buf, 36, alpha_delta_co);
 	_mav_put_float(buf, 40, i_e_t_co);
-	_mav_put_float_array(buf, 44, Qdiag, 16);
+	_mav_put_float_array(buf, 44, Qdiag, 18);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_NMPC_PARAMS_LEN);
 #else
 	mavlink_nmpc_params_t packet;
@@ -118,7 +118,7 @@ static inline uint16_t mavlink_msg_nmpc_params_pack(uint8_t system_id, uint8_t c
 	packet.alpha_m_co = alpha_m_co;
 	packet.alpha_delta_co = alpha_delta_co;
 	packet.i_e_t_co = i_e_t_co;
-	mav_array_memcpy(packet.Qdiag, Qdiag, sizeof(float)*16);
+	mav_array_memcpy(packet.Qdiag, Qdiag, sizeof(float)*18);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_NMPC_PARAMS_LEN);
 #endif
 
@@ -163,7 +163,7 @@ static inline uint16_t mavlink_msg_nmpc_params_pack_chan(uint8_t system_id, uint
 	_mav_put_float(buf, 32, alpha_m_co);
 	_mav_put_float(buf, 36, alpha_delta_co);
 	_mav_put_float(buf, 40, i_e_t_co);
-	_mav_put_float_array(buf, 44, Qdiag, 16);
+	_mav_put_float_array(buf, 44, Qdiag, 18);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_NMPC_PARAMS_LEN);
 #else
 	mavlink_nmpc_params_t packet;
@@ -178,7 +178,7 @@ static inline uint16_t mavlink_msg_nmpc_params_pack_chan(uint8_t system_id, uint
 	packet.alpha_m_co = alpha_m_co;
 	packet.alpha_delta_co = alpha_delta_co;
 	packet.i_e_t_co = i_e_t_co;
-	mav_array_memcpy(packet.Qdiag, Qdiag, sizeof(float)*16);
+	mav_array_memcpy(packet.Qdiag, Qdiag, sizeof(float)*18);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_NMPC_PARAMS_LEN);
 #endif
 
@@ -247,7 +247,7 @@ static inline void mavlink_msg_nmpc_params_send(mavlink_channel_t chan, float R_
 	_mav_put_float(buf, 32, alpha_m_co);
 	_mav_put_float(buf, 36, alpha_delta_co);
 	_mav_put_float(buf, 40, i_e_t_co);
-	_mav_put_float_array(buf, 44, Qdiag, 16);
+	_mav_put_float_array(buf, 44, Qdiag, 18);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_NMPC_PARAMS, buf, MAVLINK_MSG_ID_NMPC_PARAMS_MIN_LEN, MAVLINK_MSG_ID_NMPC_PARAMS_LEN, MAVLINK_MSG_ID_NMPC_PARAMS_CRC);
 #else
 	mavlink_nmpc_params_t packet;
@@ -262,7 +262,7 @@ static inline void mavlink_msg_nmpc_params_send(mavlink_channel_t chan, float R_
 	packet.alpha_m_co = alpha_m_co;
 	packet.alpha_delta_co = alpha_delta_co;
 	packet.i_e_t_co = i_e_t_co;
-	mav_array_memcpy(packet.Qdiag, Qdiag, sizeof(float)*16);
+	mav_array_memcpy(packet.Qdiag, Qdiag, sizeof(float)*18);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_NMPC_PARAMS, (const char *)&packet, MAVLINK_MSG_ID_NMPC_PARAMS_MIN_LEN, MAVLINK_MSG_ID_NMPC_PARAMS_LEN, MAVLINK_MSG_ID_NMPC_PARAMS_CRC);
 #endif
 }
@@ -304,7 +304,7 @@ static inline void mavlink_msg_nmpc_params_send_buf(mavlink_message_t *msgbuf, m
 	_mav_put_float(buf, 32, alpha_m_co);
 	_mav_put_float(buf, 36, alpha_delta_co);
 	_mav_put_float(buf, 40, i_e_t_co);
-	_mav_put_float_array(buf, 44, Qdiag, 16);
+	_mav_put_float_array(buf, 44, Qdiag, 18);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_NMPC_PARAMS, buf, MAVLINK_MSG_ID_NMPC_PARAMS_MIN_LEN, MAVLINK_MSG_ID_NMPC_PARAMS_LEN, MAVLINK_MSG_ID_NMPC_PARAMS_CRC);
 #else
 	mavlink_nmpc_params_t *packet = (mavlink_nmpc_params_t *)msgbuf;
@@ -319,7 +319,7 @@ static inline void mavlink_msg_nmpc_params_send_buf(mavlink_message_t *msgbuf, m
 	packet->alpha_m_co = alpha_m_co;
 	packet->alpha_delta_co = alpha_delta_co;
 	packet->i_e_t_co = i_e_t_co;
-	mav_array_memcpy(packet->Qdiag, Qdiag, sizeof(float)*16);
+	mav_array_memcpy(packet->Qdiag, Qdiag, sizeof(float)*18);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_NMPC_PARAMS, (const char *)packet, MAVLINK_MSG_ID_NMPC_PARAMS_MIN_LEN, MAVLINK_MSG_ID_NMPC_PARAMS_LEN, MAVLINK_MSG_ID_NMPC_PARAMS_CRC);
 #endif
 }
@@ -447,7 +447,7 @@ static inline float mavlink_msg_nmpc_params_get_i_e_t_co(const mavlink_message_t
  */
 static inline uint16_t mavlink_msg_nmpc_params_get_Qdiag(const mavlink_message_t* msg, float *Qdiag)
 {
-	return _MAV_RETURN_float_array(msg, Qdiag, 16,  44);
+	return _MAV_RETURN_float_array(msg, Qdiag, 18,  44);
 }
 
 /**

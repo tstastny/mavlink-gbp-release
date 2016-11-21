@@ -744,7 +744,7 @@ static void mavlink_test_nmpc_params(uint8_t system_id, uint8_t component_id, ma
         uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
         uint16_t i;
 	mavlink_nmpc_params_t packet_in = {
-		17.0,45.0,73.0,101.0,129.0,157.0,185.0,213.0,241.0,269.0,297.0,{ 325.0, 326.0, 327.0, 328.0, 329.0, 330.0, 331.0, 332.0, 333.0, 334.0, 335.0, 336.0, 337.0, 338.0, 339.0, 340.0 }
+		17.0,45.0,73.0,101.0,129.0,157.0,185.0,213.0,241.0,269.0,297.0,{ 325.0, 326.0, 327.0, 328.0, 329.0, 330.0, 331.0, 332.0, 333.0, 334.0, 335.0, 336.0, 337.0, 338.0, 339.0, 340.0, 341.0, 342.0 }
     };
 	mavlink_nmpc_params_t packet1, packet2;
         memset(&packet1, 0, sizeof(packet1));
@@ -760,7 +760,7 @@ static void mavlink_test_nmpc_params(uint8_t system_id, uint8_t component_id, ma
         packet1.alpha_delta_co = packet_in.alpha_delta_co;
         packet1.i_e_t_co = packet_in.i_e_t_co;
         
-        mav_array_memcpy(packet1.Qdiag, packet_in.Qdiag, sizeof(float)*16);
+        mav_array_memcpy(packet1.Qdiag, packet_in.Qdiag, sizeof(float)*18);
         
 
         memset(&packet2, 0, sizeof(packet2));
