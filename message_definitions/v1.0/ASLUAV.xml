@@ -202,16 +202,17 @@
               <description>Parameters for Nonlinear Model Predictive Controller</description>
               <field type="float" name="R_acpt">Track switch acceptance radius [m]</field>
               <field type="float" name="ceta_acpt">Cosine of track switch acceptance angle [~]</field>
-              <field type="float" name="k_t_d">Longitudinal logistic gain</field>
-              <field type="float" name="e_d_co">Longitudinal logistic cutoff [m]</field>
-              <field type="float" name="k_t_ne">Lateral logistic gain</field>
-              <field type="float" name="e_ne_co">Lateral logistic cutoff [m]</field>
+              <field type="float" name="k_t_ne">Longitudinal logistic gain</field>
+              <field type="float" name="e_ne_co">Longitudinal logistic cutoff [m]</field>
+              <field type="float" name="k_t_d">Lateral logistic gain</field>
+              <field type="float" name="e_d_co">Lateral logistic cutoff [m]</field>
               <field type="float" name="eps_v">Unit ground speed threshold [~]</field>
               <field type="float" name="alpha_p_co">Angle of attack upper cutoff [rad]</field>
               <field type="float" name="alpha_m_co">Angle of attack lower cutoff [rad]</field>
               <field type="float" name="alpha_delta_co">Angle of attack cutoff transition length [rad]</field>
-              <field type="float" name="i_e_t_co">Track error integral cutoff [m]</field>
-              <field type="float[18]" name="Qdiag">Objective weights</field>
+              <field type="float" name="i_e_t_ne_co">Lateral-directional track error integral cutoff [m]</field>
+              <field type="float" name="i_e_t_d_co">Longitudinal track error integral cutoff [m]</field>
+              <field type="float[19]" name="Qdiag">Objective weights</field>
            </message> 
      </messages>
 </mavlink>

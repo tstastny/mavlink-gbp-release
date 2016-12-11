@@ -744,23 +744,24 @@ static void mavlink_test_nmpc_params(uint8_t system_id, uint8_t component_id, ma
         uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
         uint16_t i;
 	mavlink_nmpc_params_t packet_in = {
-		17.0,45.0,73.0,101.0,129.0,157.0,185.0,213.0,241.0,269.0,297.0,{ 325.0, 326.0, 327.0, 328.0, 329.0, 330.0, 331.0, 332.0, 333.0, 334.0, 335.0, 336.0, 337.0, 338.0, 339.0, 340.0, 341.0, 342.0 }
+		17.0,45.0,73.0,101.0,129.0,157.0,185.0,213.0,241.0,269.0,297.0,325.0,{ 353.0, 354.0, 355.0, 356.0, 357.0, 358.0, 359.0, 360.0, 361.0, 362.0, 363.0, 364.0, 365.0, 366.0, 367.0, 368.0, 369.0, 370.0, 371.0 }
     };
 	mavlink_nmpc_params_t packet1, packet2;
         memset(&packet1, 0, sizeof(packet1));
         packet1.R_acpt = packet_in.R_acpt;
         packet1.ceta_acpt = packet_in.ceta_acpt;
-        packet1.k_t_d = packet_in.k_t_d;
-        packet1.e_d_co = packet_in.e_d_co;
         packet1.k_t_ne = packet_in.k_t_ne;
         packet1.e_ne_co = packet_in.e_ne_co;
+        packet1.k_t_d = packet_in.k_t_d;
+        packet1.e_d_co = packet_in.e_d_co;
         packet1.eps_v = packet_in.eps_v;
         packet1.alpha_p_co = packet_in.alpha_p_co;
         packet1.alpha_m_co = packet_in.alpha_m_co;
         packet1.alpha_delta_co = packet_in.alpha_delta_co;
-        packet1.i_e_t_co = packet_in.i_e_t_co;
+        packet1.i_e_t_ne_co = packet_in.i_e_t_ne_co;
+        packet1.i_e_t_d_co = packet_in.i_e_t_d_co;
         
-        mav_array_memcpy(packet1.Qdiag, packet_in.Qdiag, sizeof(float)*18);
+        mav_array_memcpy(packet1.Qdiag, packet_in.Qdiag, sizeof(float)*19);
         
 
         memset(&packet2, 0, sizeof(packet2));
@@ -769,12 +770,12 @@ static void mavlink_test_nmpc_params(uint8_t system_id, uint8_t component_id, ma
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-	mavlink_msg_nmpc_params_pack(system_id, component_id, &msg , packet1.R_acpt , packet1.ceta_acpt , packet1.k_t_d , packet1.e_d_co , packet1.k_t_ne , packet1.e_ne_co , packet1.eps_v , packet1.alpha_p_co , packet1.alpha_m_co , packet1.alpha_delta_co , packet1.i_e_t_co , packet1.Qdiag );
+	mavlink_msg_nmpc_params_pack(system_id, component_id, &msg , packet1.R_acpt , packet1.ceta_acpt , packet1.k_t_ne , packet1.e_ne_co , packet1.k_t_d , packet1.e_d_co , packet1.eps_v , packet1.alpha_p_co , packet1.alpha_m_co , packet1.alpha_delta_co , packet1.i_e_t_ne_co , packet1.i_e_t_d_co , packet1.Qdiag );
 	mavlink_msg_nmpc_params_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-	mavlink_msg_nmpc_params_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.R_acpt , packet1.ceta_acpt , packet1.k_t_d , packet1.e_d_co , packet1.k_t_ne , packet1.e_ne_co , packet1.eps_v , packet1.alpha_p_co , packet1.alpha_m_co , packet1.alpha_delta_co , packet1.i_e_t_co , packet1.Qdiag );
+	mavlink_msg_nmpc_params_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.R_acpt , packet1.ceta_acpt , packet1.k_t_ne , packet1.e_ne_co , packet1.k_t_d , packet1.e_d_co , packet1.eps_v , packet1.alpha_p_co , packet1.alpha_m_co , packet1.alpha_delta_co , packet1.i_e_t_ne_co , packet1.i_e_t_d_co , packet1.Qdiag );
 	mavlink_msg_nmpc_params_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
@@ -787,7 +788,7 @@ static void mavlink_test_nmpc_params(uint8_t system_id, uint8_t component_id, ma
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
         
         memset(&packet2, 0, sizeof(packet2));
-	mavlink_msg_nmpc_params_send(MAVLINK_COMM_1 , packet1.R_acpt , packet1.ceta_acpt , packet1.k_t_d , packet1.e_d_co , packet1.k_t_ne , packet1.e_ne_co , packet1.eps_v , packet1.alpha_p_co , packet1.alpha_m_co , packet1.alpha_delta_co , packet1.i_e_t_co , packet1.Qdiag );
+	mavlink_msg_nmpc_params_send(MAVLINK_COMM_1 , packet1.R_acpt , packet1.ceta_acpt , packet1.k_t_ne , packet1.e_ne_co , packet1.k_t_d , packet1.e_d_co , packet1.eps_v , packet1.alpha_p_co , packet1.alpha_m_co , packet1.alpha_delta_co , packet1.i_e_t_ne_co , packet1.i_e_t_d_co , packet1.Qdiag );
 	mavlink_msg_nmpc_params_decode(last_msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 }
